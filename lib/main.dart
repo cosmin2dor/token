@@ -63,7 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var data = json.decode(response.body);
 
-    code = data['code'];
+    setState(() {
+      code = data['code'];
+    });
 
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
