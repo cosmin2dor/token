@@ -55,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String url = 'http://192.168.1.100:8000/api/auth/';
   String code = '000000';
+  FlutterSound flutterSound = FlutterSound();
 
   void get_code() async {
     var response = await http.get(
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var downloaded_data = List<int>();
     String path = tempPath + '/auth.wav';
     var fileSave = new File(path);
-    client.getUrl(Uri.parse('http://192.168.1.100:8000/media/auth.wav'))
+    await client.getUrl(Uri.parse('http://192.168.1.100:8000/media/auth.wav'))
       .then((HttpClientRequest request) {
         return request.close();
       })
@@ -86,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       });
 
-      FlutterSound flutterSound = new FlutterSound();
+      // await flutterSound.stopPlayer();
+      // await flutterSound.setVolume(1.0);
       flutterSound.startPlayer(path);
   }
 
@@ -129,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               color: Colors.blue,
               onPressed: get_code,
-            )
+            ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
