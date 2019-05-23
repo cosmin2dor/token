@@ -53,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  String url = 'http://192.168.1.100:8000/api/auth/';
+  String url = 'http://172.20.10.2:8000/api/auth/';
   String code = '000000';
   FlutterSound flutterSound = FlutterSound();
 
@@ -68,28 +68,38 @@ class _MyHomePageState extends State<MyHomePage> {
       code = data['code'];
     });
 
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
+    // Directory tempDir = await getTemporaryDirectory();
+    // String tempPath = tempDir.path;
 
-    HttpClient client = new HttpClient();
-    var downloaded_data = List<int>();
-    String path = tempPath + '/auth.wav';
-    var fileSave = new File(path);
-    await client.getUrl(Uri.parse('http://192.168.1.100:8000/media/auth.wav'))
-      .then((HttpClientRequest request) {
-        return request.close();
-      })
-      .then((HttpClientResponse response) {
-        response.listen((d) => downloaded_data.addAll(d),
-          onDone: () {
-            fileSave.writeAsBytes(downloaded_data);
-          }
-        );
-      });
+    // HttpClient client = new HttpClient();
+    // var downloaded_data = List<int>();
+    // String path = tempPath + '/auth.wav';
+    // var fileSave = new File(path);
+    // await client.getUrl(Uri.parse('http://172.20.10.2:8000/media/auth.wav'))
+    //   .then((HttpClientRequest request) {
+    //     return request.close();
+    //   })
+    //   .then((HttpClientResponse response) {
+    //     response.listen((d) => downloaded_data.addAll(d),
+    //       onDone: () {
+    //         fileSave.writeAsBytes(downloaded_data);
+    //       }
+    //     );
+    //   });
+
+    // client.getUrl(Uri.parse("http://172.20.10.2:8000/media/auth.wav"))
+    // .then((HttpClientRequest request) {
+    //   return request.close();
+    // }).then((HttpClientResponse response) {
+    //   response.pipe(new File(path).openWrite());
+    // });
+
+
 
       // await flutterSound.stopPlayer();
-      // await flutterSound.setVolume(1.0);
-      flutterSound.startPlayer(path);
+      // flutterSound.setVolume(1.0);
+      flutterSound.startPlayer("http://172.20.10.2:8000/media/auth.wav");
+      
   }
 
   @override
